@@ -1,0 +1,1 @@
+base value, access and organizes historical data for single asset for easy querying
