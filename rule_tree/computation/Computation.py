@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
 class Computation(Node):
-    NUM_PARAMS = 2
+    NUM_CHILDREN = 2
     def __init__(self):
-        super().__init__(num_params=NUM_PARAMS)
+        super().__init__(num_children=NUM_CHILDREN)
     
     @abstractmethod
     def is_true(self):

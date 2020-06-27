@@ -1,4 +1,4 @@
-params (2): constants
+children (2): constants
 outputs (1): constant
 
 example(s): +, -
