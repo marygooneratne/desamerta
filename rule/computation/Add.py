@@ -1,4 +1,4 @@
-import Comparator
+import Computation
 
 class Add(Computation):
     def __init__(self):
