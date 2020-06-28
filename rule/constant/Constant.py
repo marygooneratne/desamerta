@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
-class Comparator(Node):
-    NUM_CHILDREN = 2
+class Constant(Node):
+    NUM_CHILDREN = 0
     def __init__(self):
         super().__init__(num_children=NUM_CHILDREN)
-
+    
     @abstractmethod
     def execute(self, date=None):
         pass

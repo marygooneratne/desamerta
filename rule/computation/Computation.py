@@ -6,5 +6,5 @@ class Computation(Node):
         super().__init__(num_children=NUM_CHILDREN)
 
     @abstractmethod
-    def execute(self):
+    def execute(self, date=None):
         pass

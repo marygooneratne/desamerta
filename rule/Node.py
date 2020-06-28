@@ -20,5 +20,5 @@ class Node():
         return len(children) == num_children
     
     @abstractmethod
-    def execute(self):
+    def execute(self, date=None):
         pass
