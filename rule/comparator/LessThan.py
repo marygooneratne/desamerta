@@ -1,8 +1,9 @@
-import Comparator
+from rule.comparator.Comparator import Comparator
 
 class LessThan(Comparator):
     def __init__(self):
         super().__init__()
     
     def execute(self, date=None):
-        self.value = 1 if self.children[0].value < self.children[1].value else 0
+        self.value = 1 if self.children[0].execute() < self.children[1].execute() else 0
+        return self.value

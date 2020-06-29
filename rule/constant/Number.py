@@ -1,4 +1,4 @@
-import Constant
+from rule.constant.Constant import Constant
 
 class Number(Constant):
     def __init__(self, value):
@@ -6,4 +6,4 @@ class Number(Constant):
         self.value = value
     
     def execute(self, date=None):
-        return
+        return self.value

@@ -1,8 +1,9 @@
-import Computation
+from rule.computation.Computation import Computation
 
 class Add(Computation):
     def __init__(self):
         super().__init__()
     
     def execute(self, date=None):
-        self.value = self.children[0].value + self.children[1].value
+        self.value = self.children[0].execute() + self.children[1].execute()
+        return self.value

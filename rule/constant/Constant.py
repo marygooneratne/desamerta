@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
+from rule.Node import Node
+NUM_CHILDREN = 0
 
 class Constant(Node):
-    NUM_CHILDREN = 0
     def __init__(self):
         super().__init__(num_children=NUM_CHILDREN)
     

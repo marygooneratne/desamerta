@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
+from rule.Node import Node
+
+NUM_CHILDREN = 2
 
 class Comparator(Node):
-    NUM_CHILDREN = 2
     def __init__(self):
         super().__init__(num_children=NUM_CHILDREN)
 
