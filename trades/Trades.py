@@ -1,3 +1,4 @@
+from api.
 class Trades():
     def __init__(self, raw_json):
         self.asset = raw_json["asset"]
@@ -6,8 +7,7 @@ class Trades():
         self.history = []
     
     def execute(self, date):
-        price = 0
-        # price = Data.get(self.asset).get_price(date)
+        ## My thought is, we could run through and make an array of these happening, then go back and do the finance stuff. It's confusing if you want to keep track of everything, price isnt enough, so lets do this first, then feed this into another method that calculates returns, etc.
         self.history.append(
             {
                 "date": date,
@@ -15,7 +15,6 @@ class Trades():
                     {
                         "asset": self.asset,
                         "quantity": self.quantity,
-                        "price": price,
                         "action": self.action
                     }
                 ]

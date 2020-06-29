@@ -1,5 +1,5 @@
 from Model import Model
-
+import datetime as dt
 rule_json = [
 {"constant": "3"},
 {"computation": "add"},
@@ -27,4 +27,4 @@ example_json = {
 }
 
 model = Model(example_json)
-print(model.execute(["05-04-2000", "05-05-2000", "05-06-2000", "05-07-2000", "05-08-2000", "05-09-2000", "05-10-2000"]))
+print(model.execute(dt.datetime(2020,1,1), dt.datetime(2020,1,15)))

@@ -1,5 +1,7 @@
 from rule.Rule import Rule
-from trades.Trades import Trades
+from trades.Trades import Trade
+import datetime as dt
+
 # Trades object handles execution of single rule, holds price paid, total, etc
 
 
@@ -40,10 +42,12 @@ class Model():
         self.rule = Rule(raw_json["rule"])
         self.trades = Trades(raw_json["trade"])
     
-    def execute(self, dates):
-        for day in dates:
-            if self.rule.execute(day) == 1:
-                self.trades.execute(day)
+    def execute(self, start_date, end_date):
+        date = start_date
+        while date <= end_date:
+            if self.rule.execute(date) == 1:
+                self.trades.execute(date)
+            date = start_date + dt.timedelta(days=1)
         return self.trades.get_history()
     
     def get_total_trades(self):

@@ -6,7 +6,7 @@ import datetime as dt
 # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
 
 
-def getHistory(ticker, start_date=None, end_date=None):
+def get_history(ticker, start_date=None, end_date=None):
     tickerObj = yf.Ticker(ticker.upper())
     history = tickerObj.history(
         start=start_date, end=end_date, auto_adjust=False)

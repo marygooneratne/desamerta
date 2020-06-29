@@ -33,7 +33,6 @@ NODE_TYPES = {
     "number": Number,
     "add": Add,
     "or": Or
-
 }
 class Rule():
     def __init__(self, raw_json, dates=[]):
