@@ -6,10 +6,22 @@ import datetime as dt
 
 
 
-# trade_json = {
-#   "asset": "AAPL",
-#   "quantity": "30",
-#   "action": "buy"
+# request = {
+#   "rule": [
+#     [
+#       "transformation", 
+#       "MACD"
+#     ], 
+#     [
+#       "hey", 
+#       "bby"
+#     ]
+#   ], 
+#   "trade": {
+#     "action": "buy", 
+#     "asset": "APPL", 
+#     "quantity": "10"
+#   }
 # }
 # response_json = [{
 #   "date": "12-01-2002",
