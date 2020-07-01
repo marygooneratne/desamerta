@@ -12,19 +12,6 @@ from rule.comparator.GreaterThan import GreaterThan
 from rule.comparator.LessThan import LessThan
 from rule.comparator.Or import Or
 
-# example_json = {
-#   "transformation": "slope",
-#   "transformaton": "MACD",
-#   "asset": "AAPL"
-#   "comparator": "greater than",
-#   "constant": "0",
-#   "comparator": "and",
-#   "transformation": "MACD",
-#   "asset": "AAPL",
-#   "comparator": "equalto",
-#   "transformation: "moving average"
-#   "transformation: "MACD",
-#   "asset": "AAPL"}
 NODE_TYPES = {
     "greaterthan": GreaterThan,
     "lessthan": LessThan,
@@ -34,6 +21,7 @@ NODE_TYPES = {
     "add": Add,
     "or": Or
 }
+
 class Rule():
     def __init__(self, raw_json, dates=[]):
         self.raw_json = raw_json
@@ -43,28 +31,21 @@ class Rule():
     def build(self):
         leaf_stack = []
         parent_stack = []
-        print(len(self.raw_json))
-        for dictionary in self.raw_json:
-            print('-----------------------------------------------------------------------------------')
-            key = [entry for entry in dictionary][0]
-            value = dictionary[key]
-            print(key, value)
-
+        
+        for node in self.raw_json:
+            key = node[0]
+            value = node[1]
+            
             if key == "constant":
                 node = NodeFactory.create_node("number", value=float(value))
             else:
                 node = NodeFactory.create_node(value)
             
-            print("Created node with type ", type(node), ", value: ", node.value, ", children: ", node.children)
-
             if(self.is_leaf(node)):
                 leaf_stack.append(node)
             else:
                 parent_stack.append(node)
-
-            print("PRE-REARRANGEMENT")
-            print("leaf_stack: ", leaf_stack)
-            print("parent_stack: ", parent_stack)
+            
             unadded_leaves = []
             while len(leaf_stack) > 0 and len(parent_stack) > 0:
                 parent = parent_stack.pop()
@@ -76,11 +57,12 @@ class Rule():
                     leaf_stack.append(parent)
                 else:
                     parent_stack.append(parent)
-                print("POST-REARRANGEMENT")
-                print("leaf_stack: ", leaf_stack)
-                print("parent_stack: ", parent_stack)
             leaf_stack = leaf_stack + unadded_leaves
-        self.base_rule.add_child(leaf_stack.pop())
+            
+        if not len(leaf_stack) == 1 and not len(parent_stack) == 0:
+            print("Unable to configure rule")
+        else:
+            self.base_rule.add_child(leaf_stack.pop())
     
     def print_rule(self, node, level=0):
         ret = "\t"*level+(str(type(node)))+"\n"
