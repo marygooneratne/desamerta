@@ -11,6 +11,8 @@ from rule.comparator.Equals import Equals
 from rule.comparator.GreaterThan import GreaterThan
 from rule.comparator.LessThan import LessThan
 from rule.comparator.Or import Or
+from rule.computation.Divide import Divide
+
 
 NODE_TYPES = {
     "greaterthan": GreaterThan,
@@ -19,33 +21,42 @@ NODE_TYPES = {
     "equalto": Equals,
     "number": Number,
     "add": Add,
-    "or": Or
+    "or": Or,
+    "divide": Divide
 }
 
 class Rule():
     def __init__(self, raw_json, dates=[]):
         self.raw_json = raw_json
         self.base_rule = Base()
-        self.build()
+        self.base_rule.add_child(self.build(self.raw_json))
     
-    def build(self):
+    def build(self, json):
         leaf_stack = []
         parent_stack = []
-        
-        for node in self.raw_json:
+        node_index = 0
+        while node_index < len(json):
+            node = json[node_index]
             key = node[0]
             value = node[1]
-            
             if key == "constant":
                 node = NodeFactory.create_node("number", value=float(value))
-            else:
+                print(node_index, ", ", value)
+            elif key != "parentheses":
                 node = NodeFactory.create_node(value)
-            
+            else:
+                if(value == "left"):
+                    sub_rule = []
+                    index = node_index + 1
+                    while(json[index][1] != "right"):
+                        sub_rule.append(json[index])
+                        index += 1
+                    node = self.build(sub_rule)
+                    node_index = index
             if(self.is_leaf(node)):
                 leaf_stack.append(node)
             else:
                 parent_stack.append(node)
-            
             unadded_leaves = []
             while len(leaf_stack) > 0 and len(parent_stack) > 0:
                 parent = parent_stack.pop()
@@ -58,11 +69,12 @@ class Rule():
                 else:
                     parent_stack.append(parent)
             leaf_stack = leaf_stack + unadded_leaves
+            node_index += 1
             
         if not len(leaf_stack) == 1 and not len(parent_stack) == 0:
             print("Unable to configure rule")
         else:
-            self.base_rule.add_child(leaf_stack.pop())
+            return leaf_stack.pop()
     
     def print_rule(self, node, level=0):
         ret = "\t"*level+(str(type(node)))+"\n"

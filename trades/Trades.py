@@ -1,4 +1,4 @@
-from api.
+
 class Trades():
     def __init__(self, raw_json):
         self.asset = raw_json["asset"]

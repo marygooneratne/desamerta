@@ -1,5 +1,5 @@
 from rule.Rule import Rule
-from trades.Trades import Trade
+from trades.Trades import Trades
 import datetime as dt
 
 # Trades object handles execution of single rule, holds price paid, total, etc
